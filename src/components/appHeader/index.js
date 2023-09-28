@@ -6,7 +6,7 @@ const deviceWidth = Dimensions.get('window').width;
 import LOGO from '../../Assets/logo1.png'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-function AppHeader() {
+function AppHeader({openModal}) {
   return (
      <View style={styles.mainnCon}>
          
@@ -26,7 +26,7 @@ function AppHeader() {
             <AntDesign name="heart" size={18} color={"#88CFF1"}/>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.Iconn}>
+          <TouchableOpacity style={styles.Iconn} onPress={openModal}>
             <FontAwesome name="sliders" size={18} color={"#88CFF1"} />
           </TouchableOpacity>
     </View>

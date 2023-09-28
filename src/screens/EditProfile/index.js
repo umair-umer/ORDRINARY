@@ -7,22 +7,26 @@ const deviceWidth = Dimensions.get('window').width;
 import { Arrowback } from '../../components';
 import DP from '../../Assets/photo.png';
 import ICON from '../../Assets/proicons1.png';
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
-function EditProfile({navigation}) {
+function EditProfile({ navigation }) {
 
-    const [selectImage, setselectImage] = useState('')
+    const [selectedImage, setSelectedImage] = useState('')
     const imagepicker = () => {
 
         let option = {
 
             storageoption: {
-                path: "image"
+                path: "images"
             }
         }
 
-        launchImageLibrary(option, response => {
-            console.log(response.assets[0].uri)
+        launchImageLibrary(option, (response) => {
+            if (response.assets && response.assets.length > 0) {
+                const uri = response.assets[0].uri;
+                setSelectedImage(uri);
+            }
         })
     }
 
@@ -41,21 +45,20 @@ function EditProfile({navigation}) {
                 <View style={styles.imgPicCon}>
                     <View style={styles.proDiv}>
 
-                        <View style={styles.pdiv}>
-
-                            <Image
-                                source={DP}
-                                // style={styles.img}
-                            />
+                        {/* <View style={styles.pdiv}>
+                            {selectedImage ? (
+                                <Image resizeMode='cover' source={{ uri: selectedImage }} style={styles.img} />
+                            ) : (
+                                <Image source={DP} />
+                            )}
 
                             <TouchableOpacity
-                                onPress={() => {
-                                    imagepicker(
+                                onPress={imagepicker}
 
 
 
-                                    )
-                                }}
+
+
 
                             >
                                 <Image
@@ -64,6 +67,27 @@ function EditProfile({navigation}) {
                                 />
 
                             </TouchableOpacity>
+                        </View> */}
+                        <View>
+                            {selectedImage ? (<View style={styles.img}>
+                                <Image resizeMode='center' style={styles.img} source={{ uri: selectedImage }} />
+                            </View>) : <View style={styles.img}>
+                                <Image resizeMode='center' style={styles.img} source={DP} />
+                            </View>}
+
+
+                            <TouchableOpacity
+                                style={{
+                                    width: sizes.screenWidth * 0.09, height: sizes.screenHeight * 0.05, bottom: sizes.screenHeight * 0.14, left: sizes.screenWidth * 0.15, justifyContent: 'center',
+                                    alignItems: 'center',
+                                }} onPress={imagepicker}>
+                                <View style={styles.icon}>
+
+                                    <Image source={ICON} />
+                                </View>
+
+                            </TouchableOpacity>
+
                         </View>
 
 
@@ -92,7 +116,7 @@ function EditProfile({navigation}) {
 
                     <View style={styles.inpDiv}>
                         <TextInput
-                            placeholder='Phone Name'
+                            placeholder='Phone number'
                             placeholderTextColor={'#000'}
                             style={styles.inp}
                         >
@@ -112,7 +136,7 @@ function EditProfile({navigation}) {
                     </View>
 
 
-                    <View style={styles.inpDiv}>
+                    {/* <View style={styles.inpDiv}>
                         <TextInput
                             placeholder='Email'
                             placeholderTextColor={'#000'}
@@ -120,7 +144,7 @@ function EditProfile({navigation}) {
                         >
                         </TextInput>
 
-                    </View>
+                    </View> */}
 
                     <View style={styles.line}></View>
 
@@ -149,7 +173,7 @@ function EditProfile({navigation}) {
                         onPress={() => navigation.navigate("datingpage")}
                     >
 
-                            <Text style={styles.logintext}>Continue</Text>
+                        <Text style={styles.logintext}>Continue</Text>
 
                     </TouchableOpacity>
                 </View>
@@ -281,8 +305,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: "#C6C6C6",
         borderWidth: 1,
-        justifyContent:'center',
-        alignItems:'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     logintext: {
         color: "#7BCFF6",
@@ -300,17 +324,20 @@ const styles = StyleSheet.create({
 
     },
     img: {
-        width: sizes.screenWidth * 0.29,
-        height: sizes.screenHeight * 0.14,
-        alignItems: "center",
-        borderRadius: 100
+        width: sizes.screenWidth * 0.26,
+        height: sizes.screenHeight * 0.12,
+        borderRadius: sizes.screenWidth * 0.15
+
 
     },
     icon: {
-
-        flexDirection: "row",
-        top: sizes.screenWidth * -0.3,
-        left: sizes.screenWidth * 0.09
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: sizes.screenWidth * 0.05,
+        //   height:sizes.screenHeight*0.15
+        // flexDirection: "row",
+        // bottom: sizes.screenWidth * 0.27,
+        // left: sizes.screenWidth * 0.19
     },
     planText: {
 

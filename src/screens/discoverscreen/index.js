@@ -15,47 +15,48 @@ const DiscoverScreen = ({ navigation }) => {
                 <AppHeader />
                 <View style={{ paddingHorizontal: sizes.screenWidth * 0.02 }}>
                     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        <ImageBackground source={dp1} style={styles.scrollback}>
-                            <Text style={{ color: "white", alignSelf: 'center', fontWeight: '700', marginBottom: sizes.screenHeight * 0.01 }}>Jessica,20</Text>
-                            <ImageBackground blurRadius={9} source={dp1} style={{ flexDirection: 'row', backgroundColor: "#C4C4C4", justifyContent: 'space-between', paddingHorizontal: sizes.screenWidth * 0.02, }}>
-                                <View ><Entypo name="cross" size={40} color="white" /></View>
+                        <ImageBackground style={styles.profileimage} resizeMode='cover' source={dp1}>
 
-                                <View><Entypo name={"heart"} size={40} color="white" /></View>
-                            </ImageBackground>
+                            <View blurRadius={50} style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 0 }}>
+                                <View><Entypo name="cross" size={40} color="#fff" /></View>
+                                <View><Entypo name="heart" size={40} color="#fff" /></View>
+                            </View>
+
                         </ImageBackground>
-                        <ImageBackground source={dp1}
-                            style={styles.scrollback}
-                        >
-                            <Text style={{ color: "white", alignSelf: 'center', fontWeight: '700', marginBottom: sizes.screenHeight * 0.01 }}>Jessica,20</Text>
-                            <ImageBackground blurRadius={9} source={dp1}
-                                style={{ flexDirection: 'row', backgroundColor: "#C4C4C4", justifyContent: 'space-between', paddingHorizontal: sizes.screenWidth * 0.02, }}
-                            >
-                                <View ><Entypo name="cross" size={40} color="white" /></View>
+                        <ImageBackground style={styles.profileimage} resizeMode='cover' source={dp1}>
 
-                                <View><Entypo name={"heart"} size={40} color="white" /></View>
-                            </ImageBackground>
+                            <View blurRadius={50} style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 0 }}>
+                                <View><Entypo name="cross" size={40} color="#fff" /></View>
+                                <View><Entypo name="heart" size={40} color="#fff" /></View>
+                            </View>
+
                         </ImageBackground>
-                        <ImageBackground source={dp1} style={styles.scrollback}>
-                            <Text style={{ color: "white", alignSelf: 'center', fontWeight: '700', marginBottom: sizes.screenHeight * 0.01 }}>Jessica,20</Text>
-                            <ImageBackground blurRadius={9} source={dp1} style={{ flexDirection: 'row', backgroundColor: "#C4C4C4", justifyContent: 'space-between', paddingHorizontal: sizes.screenWidth * 0.02, }}>
-                                <View ><Entypo name="cross" size={40} color="white" /></View>
+                        <ImageBackground style={styles.profileimage} resizeMode='cover' source={dp1}>
 
-                                <View><Entypo name={"heart"} size={40} color="white" /></View>
-                            </ImageBackground>
+                            <View blurRadius={50} style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 0 }}>
+                                <View><Entypo name="cross" size={40} color="#fff" /></View>
+                                <View><Entypo name="heart" size={40} color="#fff" /></View>
+                            </View>
+
+                        </ImageBackground>
+                        <ImageBackground style={styles.profileimage} resizeMode='cover' source={dp1}>
+
+                            <View blurRadius={50} style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 0 }}>
+                                <View><Entypo name="cross" size={40} color="#fff" /></View>
+                                <View><Entypo name="heart" size={40} color="#fff" /></View>
+                            </View>
+
                         </ImageBackground>
 
-                        <ImageBackground source={dp1} style={styles.scrollback}>
-                            <Text style={{ color: "white", alignSelf: 'center', fontWeight: '700', marginBottom: sizes.screenHeight * 0.01 }}>Jessica,20</Text>
-                            <ImageBackground blurRadius={9} source={dp1} style={{ flexDirection: 'row', backgroundColor: "#C4C4C4", justifyContent: 'space-between', paddingHorizontal: sizes.screenWidth * 0.02, }}>
-                                <View ><Entypo name="cross" size={40} color="white" /></View>
-
-                                <View><Entypo name={"heart"} size={40} color="white" /></View>
-                            </ImageBackground>
-                        </ImageBackground>
                     </ScrollView>
+
                 </View>
-                <View style={{ paddingLeft: sizes.screenWidth * 0.04, marginVertical: sizes.screenHeight * 0.03, }}>
+                <View style={{ paddingHorizontal: sizes.screenWidth * 0.04, marginVertical: sizes.screenHeight * 0.03, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Text style={styles.intrestText}>Interest</Text>
+                    <TouchableOpacity onPress={() => { navigation.navigate("matchscreen") }}>
+
+                        <Text style={styles.viewallbutton}>View all</Text>
+                    </TouchableOpacity>
 
                 </View>
 
@@ -102,11 +103,11 @@ const DiscoverScreen = ({ navigation }) => {
 
 
                 <View
-                style={styles.mapCont}
+                    style={styles.mapCont}
                 >
 
                     <MapView
-                         style={styles.map}
+                        style={styles.map}
                         provider={PROVIDER_GOOGLE}
                         initialRegion={{
                             latitude: 37.78825,
@@ -178,6 +179,14 @@ const styles = StyleSheet.create({
         marginHorizontal: sizes.screenWidth * 0.02
 
     },
+    profileimage: {
+        justifyContent: 'flex-end',
+        width: sizes.screenWidth * 0.4,
+        height: sizes.screenHeight * 0.25,
+        borderRadius: 50,
+        marginHorizontal: sizes.screenWidth * 0.02,
+        marginVertical: sizes.screenHeight * 0.02,
+    },
 
     btn2: {
 
@@ -212,20 +221,20 @@ const styles = StyleSheet.create({
 
     map: {
         width: "100%",
-        backgroundColor:"red",
+        backgroundColor: "red",
         height: "100%",
         overflow: 'hidden',
         // height: sizes.screenHeight * 0.4,
         // backgroundColor: "#fff"
-        borderRadius:10,
+        borderRadius: 10,
     },
-    mapCont:{
-        justifyContent:'center',
-        alignItems:'center',
+    mapCont: {
+        justifyContent: 'center',
+        alignItems: 'center',
         width: sizes.screenWidth,
         // backgroundColor:"red",
-        height: sizes.screenHeight *0.6,
-    
+        height: sizes.screenHeight * 0.6,
+
     },
 
     // img: {
@@ -246,6 +255,10 @@ const styles = StyleSheet.create({
     pimg: {
 
         marginHorizontal: sizes.screenWidth * 0.09
+    },
+    viewallbutton: {
+        color: "#88CFF1",
+        fontSize: fontSize.medium
     }
 
 

@@ -8,7 +8,7 @@ import DP3 from '../../Assets/DP3.jpg';
 import DP4 from '../../Assets/DP4.jpg';
 import ICON from '../../Assets/Plusicon.png';
 import Img from '../../Assets/stoiesome.png'
-import { AppHeader, TabBar } from '../../components';
+import { AppHeader, Filter, TabBar } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -47,26 +47,26 @@ const postDATA = [
     id: 1,
     image: DP3,
     name: 'Emma',
-    backgroundimage:DP3,
-    des:"Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    backgroundimage: DP3,
+    des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
     user: true,
-    intrest:"Travel"
+    intrest: "Travel"
   },
   {
     id: 2,
     image: DP1,
     backgroundimage: DP1,
     name: 'Ava',
-    des:"Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    intrest:"Travel"
+    des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    intrest: "Travel"
 
   },
   {
     id: 3,
     image: DP2,
     backgroundimage: DP2,
-    des:"Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    intrest:"Travel",
+    des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    intrest: "Travel",
     name: 'sopia',
   },
   {
@@ -74,57 +74,57 @@ const postDATA = [
     image: DP3,
     backgroundimage: DP3,
     name: 'Adam',
-    des:"Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    intrest:"food"
+    des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    intrest: "food"
   },
   {
     id: 5,
     image: DP4,
     backgroundimage: DP4,
     name: 'Brian',
-    des:"Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    intrest:"fashion"
+    des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    intrest: "fashion"
   },
 ];
 
 
-const PostImage=({backgroundimage,image,name,des,intrest})=>{
-   return(
-    
-        <ImageBackground source={backgroundimage} resizeMode='cover' style={styles.stories}>
+const PostImage = ({ backgroundimage, image, name, des, intrest }) => {
+  return (
+
+    <ImageBackground source={backgroundimage} resizeMode='cover' style={styles.stories}>
 
 
-          <TouchableOpacity style={styles.smbol}>
-            <Text style={styles.txx}>{intrest}</Text>
-          </TouchableOpacity>
-          <View style={styles.dptxt}>
-            <Text style={styles.dptt}>{des}</Text>
-          </View>
-          <View style={styles.showDp}>
+      <TouchableOpacity style={styles.smbol}>
+        <Text style={styles.txx}>{intrest}</Text>
+      </TouchableOpacity>
+      <View style={styles.dptxt}>
+        <Text style={styles.dptt}>{des}</Text>
+      </View>
+      <View style={styles.showDp}>
 
-            <View style={styles.profile1}>
+        <View style={styles.profile1}>
 
-              <Image
-                source={image}
-                style={{ width: "100%", height: "100%" }}
+          <Image
+            source={image}
+            style={{ width: "100%", height: "100%" }}
 
-              />
+          />
 
-            </View>
-            <View>
+        </View>
+        <View>
 
-              <Text style={styles.dptt1}>{name}</Text>
-            </View>
+          <Text style={styles.dptt1}>{name}</Text>
+        </View>
 
-          </View>
+      </View>
 
-        </ImageBackground>
-
-
+    </ImageBackground>
 
 
-  
-   )
+
+
+
+  )
 
 
 }
@@ -139,25 +139,20 @@ const Item = ({ name, image, ICON }) => {
   return (
     (
       <TouchableOpacity style={styles.StoryDiv} onPress={() => navigation.navigate("view")}>
+        
         <View style={styles.profile}>
           <Image
             source={image}
             style={{ width: "100%", height: "100%" }}
-            resizeMode='cover'
+            resizeMode='center'
 
           />
-          <TouchableOpacity
-
-
-          >
-            <Image
-              source={ICON}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
+  
 
         </View>
+
         <Text style={styles.text}>{name}</Text>
+        
       </TouchableOpacity>
     )
   )
@@ -167,47 +162,57 @@ const Item = ({ name, image, ICON }) => {
 
 
 function DatingPage({ navigation }) {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   return (
-    <View style={{backgroundColor:"#fff",paddingBottom:sizes.screenHeight*0.06}} >
-      <AppHeader />
+    <>
+      <View style={{ backgroundColor: "#fff", paddingBottom: sizes.screenHeight * 0.06 }} >
+        <AppHeader openModal={openModal} />
 
-      <View style={styles.Story}>
+        <View style={styles.Story}>
 
-        <View style={styles.mainStor}>
-         
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            data={DATA}
+          <View style={styles.mainStor}>
 
-            renderItem={({ item }) => <Item  image={item.image} name={item.name} ICON={item.user ? ICON : ""} />}
-            keyExtractor={item => item.id}
-          />
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              data={DATA}
+
+              renderItem={({ item }) => <Item image={item.image} name={item.name} />}
+              keyExtractor={item => item.id}
+            />
 
 
-        
+
+          </View>
         </View>
-      </View>
-      <View style={styles.bgbtn}>
-                    <View style={styles.btnDiv}>
-                        <TouchableOpacity
-                            style={styles.btn1}
-                            onPress={() => navigation.navigate("msgs")}
-                        >
-                            <Text style={styles.txx1}>Search partners</Text>
-                        </TouchableOpacity>
+        <View style={styles.bgbtn}>
+          <View style={styles.btnDiv}>
+            <TouchableOpacity
+              style={styles.btn1}
+              onPress={() => navigation.navigate("msgs")}
+            >
+              <Text style={styles.txx1}>Search partners</Text>
+            </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.btn2}
-                          onPress={() => navigation.navigate("discoverscreen")}
-                        
-                        >
-                            <Text style={styles.txx2}>Make  friends </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+            <TouchableOpacity style={styles.btn2}
+              onPress={() => navigation.navigate("swippage")}
 
-      <View style={styles.showDiv}>
-      <FlatList
+            >
+              <Text style={styles.txx2}>Make  friends </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.showDiv}>
+          <FlatList
             // horizontal
             // showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
@@ -215,18 +220,20 @@ function DatingPage({ navigation }) {
 
             renderItem={({ item }) => <PostImage backgroundimage={item.backgroundimage} image={item.image} name={item.name} des={item.des} intrest={item.intrest}
             //  ICON={item.user ? ICON : ""}
-             />}
+            />}
             keyExtractor={item => item.id}
           />
+        </View>
+
+
+
+        <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+          <TabBar />
+        </View>
       </View>
+      <Filter isModalVisible={isModalVisible} closeModal={closeModal} />
 
-
-
-      <View style={{ justifyContent: 'center', alignItems: 'center',  }}>
-        <TabBar/>
-      </View>
-    </View>
-
+    </>
 
 
 
@@ -246,7 +253,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   StoryDiv: {
-
+    justifyContent: 'center',
+    alignItems: 'center',
     // width: sizes.screenWidth * 0.3,
     // height: sizes.screenHeight * 0.4,
     // marginHorizontal:sizes.screenWidth * -0.028,
@@ -259,7 +267,7 @@ const styles = StyleSheet.create({
 
     width: sizes.screenWidth * 0.22,
     height: sizes.screenHeight * 0.10,
-    // backgroundColor:"#fff",
+    backgroundColor:"#fff",
     marginVertical: sizes.screenHeight * 0.01,
     marginHorizontal: sizes.screenWidth * 0.03,
     borderColor: "#88CFF1",
@@ -293,27 +301,27 @@ const styles = StyleSheet.create({
   icon: {
 
     flexDirection: "row",
-   
+
   },
   showDiv: {
-  justifyContent:'center',
-  alignItems:'center',
-  // marginVertical:sizes.screenHeight*0.03,
-  marginTop:sizes.screenHeight*0.05,
-  // marginBottom:sizes.screenHeight*0.16,
-  height:sizes.screenHeight*0.50
-   
-  
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginVertical:sizes.screenHeight*0.03,
+    marginTop: sizes.screenHeight * 0.05,
+    // marginBottom:sizes.screenHeight*0.16,
+    height: sizes.screenHeight * 0.50
+
+
   },
   stories: {
 
     width: sizes.screenWidth * 0.9,
     height: sizes.screenHeight * 0.5,
     // backgroundColor: "white",
-    marginVertical:sizes.screenHeight*0.02,
+    marginVertical: sizes.screenHeight * 0.02,
 
-    borderRadius:10,
-  
+    borderRadius: 10,
+
 
     paddingHorizontal: sizes.screenWidth * 0.03,
     paddingVertical: sizes.screenHeight * 0.02
@@ -397,7 +405,7 @@ const styles = StyleSheet.create({
   },
   dptt1: {
 
-    color: "red",
+    color: "#fff",
     fontSize: fontSize.h6,
     fontWeight: "900",
     marginVertical: sizes.screenHeight * 0.03,

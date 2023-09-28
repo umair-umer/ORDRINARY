@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Text, View, Dimensions,StyleSheet,SafeAreaView,TouchableOpacity,ImageBackground, TextInput } from 'react-native'
 import { colors, sizes, fontSize } from '../../utilities';
 import PhoneInput from "react-native-phone-number-input";import { Colors } from "react-native/Libraries/NewAppScreen";

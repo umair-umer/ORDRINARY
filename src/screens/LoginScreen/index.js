@@ -4,57 +4,65 @@ import { colors, sizes, fontSize } from '../../utilities';
 import background from '../../Assets/background.png';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
-import { Arrowback } from '../../components'
+import { Arrowback, Loader } from '../../components'
 function Login({navigation}) {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-  
-    const isEmailValid = () => {
-      // Simple email validation using a regular expression
-      const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-      return emailPattern.test(email);
-    };
-  
-    const isPasswordValid = () => {
-      // Check if the password meets your validation criteria
-      return password.length >= 6; // For example, require a minimum of 6 characters
-    };
-  
-    const handleLogin = async () => {
-      // Check if email and password are valid
-    //   if (!isEmailValid()) {
-    //     Alert.alert('Invalid Email', 'Please enter a valid email address.');
-    //     return;
-    //   }
-  
-    //   if (!isPasswordValid()) {
-    //     Alert.alert('Invalid Password', 'Password must be at least 6 characters.');
-    //     return;
-    //   }
-  
-    //   try {
-    //     // Make a POST request to your API endpoint for authentication
-    //     const response = await axios.post('YOUR_LOGIN_API_ENDPOINT', {
-    //       email,
-    //       password,
-    //     });
-  
-    //     // Assuming your API returns a token upon successful login
-    //     const token = response.data.token;
-  
-    //     // Store the token securely, possibly in AsyncStorage or Redux, for future authenticated requests
-  
-    //     // Navigate to the user's profile or dashboard screen
-    //     // navigation.navigate('profile');
-    //   } catch (error) {
-    //     // Handle login error, e.g., display an error message to the user
-    //     console.error('Login failed:', error);
-    //     Alert.alert('Login Failed', 'An error occurred while logging in.');
-    //   }
-    };
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const isEmailValid = () => {
+    // Simple email validation using a regular expression
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailPattern.test(email);
+  };
+
+  const isPasswordValid = () => {
+    // Check if the password meets your validation criteria
+    return password.length >= 6; // For example, require a minimum of 6 characters
+  };
+
+  const handleLogin = () => {
+    // Check if email and password are valid
+    if (!isEmailValid()) {
+      alert('Invalid Email', 'Please enter a valid email address.');
+      return;
+    }
+
+    if (!isPasswordValid()) {
+      alert('Invalid Password', 'Password must be at least 6 characters.');
+      return;
+    }
+
+    // Replace this with your actual login logic
+    const correctEmail = 'brian@gmail.com';
+    const correctPassword = 'Umair123';
+
+    if (email === correctEmail && password === correctPassword) {
+      openModal()
+      setTimeout(() => {
+        closeModal(); // Hide loader
+        navigation.navigate('datingpage'); // Replace 'login' with the actual screen you want to navigate to
+      }, 3000);
+      // Successful login, navigate to the dashboard
+   // Replace 'Dashboard' with your actual dashboard screen name
+    } else {
+      // Incorrect login credentials
+      alert('Login Failed', 'Incorrect email or password.');
+    }
+  };
+
 
   return (
+    <>
+    <Loader isModalVisible={isModalVisible} closeModal={closeModal} />
     <ImageBackground source={background} style={styles.bgImg} resizeMode='cover' >
 
 <View style={styles.container}>
@@ -68,6 +76,8 @@ function Login({navigation}) {
                 <TextInput 
                 placeholder='Email Address'
                 placeholderTextColor={'#000'}
+                onChangeText={text => setEmail(text)}
+                value={email}
                 style={styles.inp}
                 >
 
@@ -79,6 +89,9 @@ function Login({navigation}) {
                 placeholder='Password'
                 placeholderTextColor={'#000'}
                 style={styles.inp}
+                onChangeText={text => setPassword(text)}
+                value={password}
+                secureTextEntry
                 >
 
                 </TextInput>
@@ -98,7 +111,7 @@ function Login({navigation}) {
              <View  style={styles.buttoncontainer}>
             <TouchableOpacity
             style={styles.button}
-            onPress={()=>navigation.navigate("profile")}
+            onPress={handleLogin}
 
           >
             <Text style={styles.logintext}>Sign in</Text>
@@ -111,6 +124,7 @@ function Login({navigation}) {
 
             </View>
     </ImageBackground>
+    </>
   )
 }
 
@@ -167,7 +181,7 @@ const styles = StyleSheet.create({
          
         },
         inp:{
-
+            color:"#000",
             borderColor:"#7BCFF6",
             borderWidth:1,
             borderRadius:10,

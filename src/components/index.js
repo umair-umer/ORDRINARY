@@ -4,5 +4,6 @@ import AppHeader from "./appHeader";
 import TabBar from './TabBar';
 import Swipe from "./swipcomponent";
 import Loader from "./loader";
+import Filter from "./filter";
 
-export {Arrowback,modal,AppHeader,TabBar,Swipe,Loader}
+export {Arrowback,modal,AppHeader,TabBar,Swipe,Loader,Filter}

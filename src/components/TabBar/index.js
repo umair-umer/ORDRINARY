@@ -65,7 +65,7 @@ function TabBar() {
 
       <TouchableOpacity 
       style={styles.icon}
-      onPress={()=>navigation.navigate("userprofile")}  
+      onPress={()=>navigation.navigate("editprofile")}  
       >
 
         <Image

@@ -414,7 +414,8 @@ const styles = StyleSheet.create({
 
         // width: sizes.screenWidth * 0.8,
         // height: sizes.screenHeight * 0.12,
-        backgroundColor: "#F3F3F3",
+        backgroundColor: "#0087C8",
+        opacity:0.4,
         //   marginHorizontal:sizes.screenWidth * 0.02,
         paddingHorizontal: sizes.screenWidth * 0.15,
         alignItems: "flex-end",

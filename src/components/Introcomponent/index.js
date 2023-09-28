@@ -22,7 +22,7 @@ import { fontSize } from '../../utilities';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
-const Component = () => {
+const Component = ({name,next}) => {
     
     return (
         <View style={styles.container}>
@@ -49,11 +49,13 @@ const Component = () => {
 
 
             </View>
-            <TouchableOpacity>
-                <View style={styles.buttoncontainer}>
-                    <Text style={styles.buttontext}>Next</Text>
-                </View>
+                {/* <View style={styles.buttoncontainer}>
+            <TouchableOpacity onPress={next}>
+
+                    <Text style={styles.buttontext}>{name}</Text>
+                
             </TouchableOpacity>
+                </View> */}
         </View>
     );
 };
@@ -80,11 +82,11 @@ const Componentsecond = () => {
                     <Text style={styles.matchfontphyra}> ensure you never match with bots.</Text>
                 </View>
             </View>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
                 <View style={styles.buttoncontainer}>
                     <Text style={styles.buttontext}>Next</Text>
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };
@@ -113,13 +115,14 @@ const Componentthrd = () => {
                     <Text style={styles.matchfontphyra}>of premium benefits on us..</Text>
                 </View>
             </View>
-            <View style={styles.buttoncontainer}>
+     
             <TouchableOpacity
+            style={styles.buttoncontainer}
                   onPress={()=>navigation.navigate("creataccount")}
             >
                     <Text style={styles.buttontext}>Get started</Text>
             </TouchableOpacity>
-                </View>
+              
 
         </View>
     );

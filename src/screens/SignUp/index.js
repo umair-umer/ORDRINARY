@@ -8,12 +8,15 @@ import { Arrowback, Loader } from '../../components'
 import axios from 'axios';
 function SignUp({ navigation }) {
 
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [error, setError] = useState();
+ 
+ 
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -25,138 +28,130 @@ function SignUp({ navigation }) {
   };
 
   const handleSignup = () => {
-  
-    openModal(); 
+    openModal(); // Show loader
+    setError('');
+
+    // Regular expression for password validation: at least one uppercase letter and one number
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).+$/;
+
+    // Regular expression for email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       setError('All fields are required');
+      closeModal(); // Hide loader
+    } else if (!passwordRegex.test(password)) {
+      setError('Password must contain at least one uppercase letter and one number');
+      closeModal(); // Hide loader
     } else if (password !== confirmPassword) {
       setError('Passwords do not match');
+      closeModal(); // Hide loader
+    } else if (!emailRegex.test(email)) {
+      setError('Invalid email address');
+      closeModal(); // Hide loader
     } else {
-      // setError('');
 
-      
-    
+      setTimeout(() => {
+        closeModal(); // Hide loader
+        navigation.navigate('login'); // Replace 'login' with the actual screen you want to navigate to
+      }, 2000);
+      // Navigate forward if all conditions are met
+     // Hide loader
+  
     }
-    setTimeout(() => {
-      closeModal(); 
-      navigation.navigate('login'); 
-    }, 3000);
-  }
+
+  };
 
 
 
 
 
   return (
-<>   
-<Loader isModalVisible={isModalVisible} closeModal={closeModal}/>
-    <ImageBackground source={background} style={styles.bgImg} resizeMode='cover' >
+    <>
+  <Loader isModalVisible={isModalVisible} closeModal={closeModal} />
+    <ImageBackground source={background} style={styles.bgImg} resizeMode="cover">
       <View style={styles.container}>
         <Arrowback />
         <View style={styles.logincontainer}>
           <Text style={styles.loginText}>Sign up</Text>
-
-
         </View>
 
         <View style={styles.incontainer}>
           <View style={styles.inpDiv}>
             <TextInput
               onChangeText={(text) => setFirstName(text)}
-              placeholder='First Name'
-              placeholderTextColor={'#000'}
+              placeholder="First Name"
+              placeholderTextColor="#000"
               style={styles.inp}
               value={firstName}
-            >
-
-            </TextInput>
-            <Text style={{ color: "red" }}>{firstName == null ? error : ""}</Text>
+            />
+            
           </View>
 
           <View style={styles.inpDiv}>
             <TextInput
               onChangeText={(text) => setLastName(text)}
-              placeholder='Last Name'
-              placeholderTextColor={'#000'}
+              placeholder="Last Name"
+              placeholderTextColor="#000"
               style={styles.inp}
               value={lastName}
-            >
-
-
-            </TextInput>
-            <Text style={{ color: "red" }}>{lastName == null ? error : ""}</Text>
+            />
+           
           </View>
-
 
           <View style={styles.inpDiv}>
             <TextInput
               placeholder="Email"
+              placeholderTextColor="#000"
               onChangeText={(text) => setEmail(text)}
               value={email}
               style={styles.inp}
-            >
-
-            </TextInput>
-            <Text style={{ color: "red" }}>{email == null ? error : ""}</Text>
+            />
+            
           </View>
-
 
           <View style={styles.inpDiv}>
             <TextInput
               placeholder="Password"
+              placeholderTextColor="#000"
               onChangeText={(text) => setPassword(text)}
               value={password}
+              secureTextEntry={true}
               style={styles.inp}
-            >
-
-            </TextInput>
-            <Text style={{ color: "red" }}>{password == null ? error : ""}</Text>
+            />
+          
           </View>
-
 
           <View style={styles.inpDiv}>
             <TextInput
               placeholder="Confirm Password"
+              placeholderTextColor="#000"
               onChangeText={(text) => setConfirmPassword(text)}
               value={confirmPassword}
-
-              placeholderTextColor={'#000'}
+              secureTextEntry={true}
               style={styles.inp}
-            >
-
-            </TextInput>
-            <Text style={{ color: "red" }}>{confirmPassword == null ? error : ""}</Text>
+            />
+            
           </View>
           <View style={styles.inpText}>
-            <Text style={styles.info}>If you ar already sign up <Text onPress={() => navigation.navigate("login")} style={styles.tt2}>? Sigin</Text></Text>
+            <Text style={styles.info}>
+              If you are already signed up{' '}
+              <Text onPress={() => navigation.navigate('login')} style={styles.tt2}>
+                Sign in
+              </Text>
+            </Text>
+            {error && <Text style={styles.errorText}>{error}</Text>}
           </View>
-
-
-
         </View>
-
-
-
 
         <View style={styles.buttoncontainer}>
-          <TouchableOpacity
-            style={styles.button}
-
-            onPress={handleSignup}
-
-          >
-
+          <TouchableOpacity style={styles.button} onPress={handleSignup}>
             <Text style={styles.logintext}>Sign Up</Text>
-
           </TouchableOpacity>
         </View>
-
-
-
-
       </View>
     </ImageBackground>
-    </> 
+  </>
   )
 }
 
@@ -213,7 +208,7 @@ const styles = StyleSheet.create({
 
   },
   inp: {
-
+    color: "#000",
     borderColor: "#7BCFF6",
     borderWidth: 1,
     borderRadius: 10,
@@ -254,7 +249,17 @@ const styles = StyleSheet.create({
   info: {
 
     color: "#000"
+  },
+  errorText:{
+    width:sizes.screenWidth*0.5,
+    top:sizes.screenHeight*0.03,
+    // right:sizes.screenWidth*0.1,
+    color:"black",
+    fontSize:fontSize.small,
+    backgroundColor:"red"
+    
   }
+
 
 
 
