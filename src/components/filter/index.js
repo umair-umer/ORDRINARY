@@ -5,6 +5,7 @@ import Modal from "react-native-modal";
 import { fontSize, sizes } from '../../utilities';
 import Slider from '@react-native-community/slider';
 import Entypo from 'react-native-vector-icons/Entypo';
+import CustomDropdown from '../countrymodal';
 
 const Filter = ({ isModalVisible, closeModal }) => {
     const [sliderValue, setSliderValue] = useState(0);
@@ -22,8 +23,8 @@ const Filter = ({ isModalVisible, closeModal }) => {
     };
     return (
         <Modal swipeDirection="up" isVisible={isModalVisible}>
-            <View style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20, top: sizes.screenHeight * 0.20, left: -10, backgroundColor: "white", width: sizes.screenWidth * 0.95, height: sizes.screenHeight * 0.6, }} >
-                <Text onPress={closeModal} style={{ alignSelf: 'flex-end' }}><Entypo name="cross" size={40} color="#000" /></Text>
+            <View style={{paddingVertical:sizes.screenHeight*0.03, borderTopLeftRadius: 20, borderTopRightRadius: 20, top: sizes.screenHeight * 0.10, left: -10, backgroundColor: "white", width: sizes.screenWidth * 0.95, height: sizes.screenHeight * 0.79, }} >
+                <Text onPress={closeModal} style={{ alignSelf: 'flex-end',marginHorizontal:sizes.screenWidth*0.02, }}><Entypo name="cross" size={40} color="#000" /></Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{
                         color: "#000",
@@ -41,15 +42,15 @@ const Filter = ({ isModalVisible, closeModal }) => {
                         marginHorizontal: sizes.screenWidth * 0.05
                     }} >clear</Text>
                 </View>
-
-                <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: sizes.screenHeight * 0.03 }}>
+                <CustomDropdown/>
+                {/* <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: sizes.screenHeight * 0.03 }}>
                     <View style={{ flexDirection: 'row', borderWidth: 1, width: sizes.screenWidth * 0.8, height: sizes.screenHeight * 0.07, justifyContent: 'space-between', paddingHorizontal: sizes.screenWidth * 0.02, borderRadius: 5, alignItems: 'center' }}>
                         <Text style={{
                             color: "#000", fontSize: fontSize.extraLarge,
                             fontWeight: "400"
                         }} >Chicago, USA</Text><Entypo name="chevron-small-right" size={30} color={"#7BCFF6"} />
                     </View>
-                </View>
+                </View> */}
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: sizes.screenWidth * 0.8 }}>
                         <Text style={{

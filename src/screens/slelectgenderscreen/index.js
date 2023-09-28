@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Arrowback } from '../../components';
 
-export default function GenderScreen({navigation}) {
+export default function GenderScreen({navigation,route}) {
     const [MaleOption, setMaleOption]=useState(false);
     const [feMaleOption, setfeMaleOption]=useState(false);
     const [selectedGender, setSelectedGender] = useState(''); // State to store selected gender

@@ -6,7 +6,7 @@ import DP1 from '../../Assets/stroy.jpg';
 import DP2 from '../../Assets/DP2.jpg';
 import DP3 from '../../Assets/DP3.jpg';
 import DP4 from '../../Assets/DP4.jpg';
-import ICON from '../../Assets/Plusicon.png';
+import Plusicon from  "../../Assets/Plusicon.png"
 import Img from '../../Assets/stoiesome.png'
 import { AppHeader, Filter, TabBar } from '../../components';
 import { useNavigation } from '@react-navigation/native';
@@ -19,6 +19,7 @@ const DATA = [
     id: 1,
     image: DP,
     name: 'Emma',
+    icon:Plusicon,
     user: true,
   },
   {
@@ -49,8 +50,9 @@ const postDATA = [
     name: 'Emma',
     backgroundimage: DP3,
     des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-    user: true,
+   
     intrest: "Travel"
+   
   },
   {
     id: 2,
@@ -133,14 +135,15 @@ const PostImage = ({ backgroundimage, image, name, des, intrest }) => {
 
 
 
-const Item = ({ name, image, ICON }) => {
+const Item = ({ name, image,ion}) => {
   const navigation = useNavigation();
   const [user, setuser] = useState(true)
   return (
-    (
-      <TouchableOpacity style={styles.StoryDiv} onPress={() => navigation.navigate("view")}>
-        
+      <TouchableOpacity style={styles.StoryDiv} 
+      onPress={() => navigation.navigate("view")}>
+     
         <View style={styles.profile}>
+   
           <Image
             source={image}
             style={{ width: "100%", height: "100%" }}
@@ -150,11 +153,15 @@ const Item = ({ name, image, ICON }) => {
   
 
         </View>
-
+       <Image
+         source={ion}
+        style={styles.icon}
+       />
         <Text style={styles.text}>{name}</Text>
-        
+        <TouchableOpacity>
       </TouchableOpacity>
-    )
+      </TouchableOpacity>
+    
   )
 }
 
@@ -180,12 +187,14 @@ function DatingPage({ navigation }) {
 
           <View style={styles.mainStor}>
 
+      
+
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
               data={DATA}
 
-              renderItem={({ item }) => <Item image={item.image} name={item.name} />}
+              renderItem={({ item }) => <Item image={item.image} name={item.name} ion={item.icon} />}
               keyExtractor={item => item.id}
             />
 
@@ -264,17 +273,15 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   profile: {
-
     width: sizes.screenWidth * 0.22,
     height: sizes.screenHeight * 0.10,
-    backgroundColor:"#fff",
+    // backgroundColor:"#fff",
     marginVertical: sizes.screenHeight * 0.01,
     marginHorizontal: sizes.screenWidth * 0.03,
     borderColor: "#88CFF1",
     borderWidth: 2,
     borderRadius: 90,
-    overflow: 'hidden'
-
+    overflow: 'hidden',
   },
   text: {
     justifyContent: "center",
@@ -299,9 +306,13 @@ const styles = StyleSheet.create({
 
   },
   icon: {
-
+  
+     
     flexDirection: "row",
-
+    left:sizes.screenWidth * 0.21,
+    bottom:sizes.screenHeight *0.05,
+    position:'absolute'
+   
   },
   showDiv: {
     justifyContent: 'center',

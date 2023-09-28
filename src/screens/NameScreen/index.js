@@ -7,16 +7,33 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import { Arrowback } from '../../components';
+import { Arrowback, Loader } from '../../components';
 
 export default function NameScreen({navigation}) {
   
   const [name, setName] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
   const handleNext = () => {
-    // Navigate to the next screen and pass the name as a parameter
-    navigation.navigate('genderscreen', { name });
+    openModal()
+    setTimeout(() => {
+      closeModal(); // Hide loader
+      navigation.navigate('genderscreen', {name});// Replace 'login' with the actual screen you want to navigate to
+    }, 3000);
+    
   };
   return (
+    <>
+    
+    <Loader isModalVisible={isModalVisible} closeModal={closeModal} />
+    
     <ImageBackground source={background} style={styles.bgImg} resizeMode='cover' >
     
     <View style={styles.container}>
@@ -35,7 +52,9 @@ export default function NameScreen({navigation}) {
        <TextInput
         placeholder='Enter Your name'
         placeholderTextColor={"#000"}
+        onChangeText={(text)=>{setName(text)}}
          style={styles.inp}
+         value={name}
        />
 
         </View>
@@ -61,6 +80,7 @@ export default function NameScreen({navigation}) {
 
 
 </ImageBackground>
+</>
 )
 }
 

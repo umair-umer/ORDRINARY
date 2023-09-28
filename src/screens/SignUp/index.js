@@ -140,7 +140,13 @@ function SignUp({ navigation }) {
                 Sign in
               </Text>
             </Text>
-            {error && <Text style={styles.errorText}>{error}</Text>}
+            {error &&
+            <View style={styles.errorDiv}>
+            
+            <Text style={styles.errorText}>{error}</Text>
+            
+            </View>
+            }
           </View>
         </View>
 
@@ -250,13 +256,26 @@ const styles = StyleSheet.create({
 
     color: "#000"
   },
+
+  errorDiv:{
+    
+      paddingHorizontal:sizes.screenWidth * 0.09,
+      paddingVertical:sizes.screenHeight * 0.02,
+      backgroundColor:"red",
+      borderRadius:10,
+      right:sizes.screenWidth * 0.10,
+      top:sizes.screenHeight * 0.02,
+      opacity:0.5
+
+  },
   errorText:{
     width:sizes.screenWidth*0.5,
-    top:sizes.screenHeight*0.03,
+    // top:sizes.screenHeight*0.03,
     // right:sizes.screenWidth*0.1,
-    color:"black",
-    fontSize:fontSize.small,
-    backgroundColor:"red"
+    color:"#fff",
+    fontSize:fontSize.medium,
+    fontWeight:"600"
+    // backgroundColor:"red"
     
   }
 

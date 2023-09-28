@@ -11,6 +11,8 @@ import PhoneInput from "react-native-phone-number-input";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
+import axios from 'axios';
+import Toast from 'react-native-toast-message';
 const LoginWithNumber = ({ navigation }) => {
     const [value, setValue] = useState("");
     const [formattedValue, setFormattedValue] = useState("");
@@ -18,44 +20,45 @@ const LoginWithNumber = ({ navigation }) => {
     const phoneInput = useRef(null);
   
     const handleLogin = async () => {
-      try {
-        const checkValid = phoneInput.current?.isValidNumber(value);
+        navigation.navigate("Verify");
+//       try {
+//         const checkValid = phoneInput.current?.isValidNumber(value);
+//   console.log(phoneInput,"====>");
+//         if (!checkValid) {
+//           Toast.show({
+//             type: 'error',
+//             position: 'bottom',
+//             text1: 'Invalid Phone Number',
+//             visibilityTime: 3000,
+//           });
+//           return;
+//         }
   
-        if (!checkValid) {
-          Toast.show({
-            type: 'error',
-            position: 'bottom',
-            text1: 'Invalid Phone Number',
-            visibilityTime: 3000,
-          });
-          return;
-        }
+//         // Send a request to your server to create and send a verification code
+//     //     const response = await axios.post('YOUR_SERVER_ENDPOINT', {
+//     //       phoneNumber: formattedValue, // Send the formatted phone number to your server
+//     //     });
   
-        // Send a request to your server to create and send a verification code
-        const response = await axios.post('YOUR_SERVER_ENDPOINT', {
-          phoneNumber: formattedValue, // Send the formatted phone number to your server
-        });
-  
-        // Assuming your server responds with a success message
-        if (response.data.success) {
-          navigation.navigate("Verify", { phoneNumber: formattedValue });
-        } else {
-          Toast.show({
-            type: 'error',
-            position: 'bottom',
-            text1: 'Error Sending Code',
-            visibilityTime: 3000,
-          });
-        }
-      } catch (error) {
-        console.error(error);
-        Toast.show({
-          type: 'error',
-          position: 'bottom',
-          text1: 'Something went wrong',
-          visibilityTime: 3000,
-        });
-      }
+//     //     // Assuming your server responds with a success message
+//     //     if (response.data.success) {
+//     //       navigation.navigate("Verify", { phoneNumber: formattedValue });
+//     //     } else {
+//     //       Toast.show({
+//     //         type: 'error',
+//     //         position: 'bottom',
+//     //         text1: 'Error Sending Code',
+//     //         visibilityTime: 3000,
+//     //       });
+//     //     }
+//       } catch (error) {
+//     //     console.error(error);
+//     //     Toast.show({
+//     //       type: 'error',
+//     //       position: 'bottom',
+//     //       text1: 'Something went wrong',
+//     //       visibilityTime: 3000,
+//     //     });
+//        }
     };
 
     return (

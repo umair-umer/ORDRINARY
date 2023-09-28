@@ -8,7 +8,7 @@ import { Arrowback } from '../../components';
 import DP from '../../Assets/photo.png';
 import DP4 from '../../Assets/DP4.jpg';
 import date1 from "../../Assets/date1.png"
-
+import AntDesign from 'react-native-vector-icons/AntDesign';
 function viewScreen({ navigation }) {
     const [current, setcurrent] = useState(0)
     const [content, setcontent] = useState([
@@ -84,6 +84,7 @@ function viewScreen({ navigation }) {
                     start();
                 }}
             />
+            
 
             <View style={{ width: sizes.screenWidth, position: 'absolute', top: 10, justifyContent: 'space-evenly', flexDirection: 'row', alignItems: 'center' }}>
                 {content.map((index) => {
@@ -93,6 +94,7 @@ function viewScreen({ navigation }) {
 
                             <Animated.View style={{ flex: content == index ? content[index].finish : progress, height: sizes.screenHeight * 0.006, backgroundColor: 'rgba(255,255,255,1)', marginLeft: sizes.screenWidth * 0.02, }}></Animated.View>
 
+
                         </View>
 
 
@@ -100,6 +102,14 @@ function viewScreen({ navigation }) {
                     )
                 })}
             </View>
+            <View style={styles.profileContainer}>
+        <Image source={DP} style={styles.profileImage} />
+      </View>
+
+      {/* Close Button */}
+      <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
+        <AntDesign name="close" size={24} color="white" />
+      </TouchableOpacity>
 
             <View
                 style={{
@@ -215,6 +225,24 @@ const styles = StyleSheet.create({
         fontSize: fontSize.h6,
         fontWeight: "800"
     },
+
+    profileContainer: {
+        position: 'absolute',
+        top: sizes.screenHeight*0.04,
+        left: sizes.screenWidth*0.04,
+        zIndex: 1,
+      },
+      profileImage: {
+        width: sizes.screenWidth*0.2,
+        height: sizes.screenHeight*0.09,
+        borderRadius: 20,
+      },
+      closeButton: {
+        position: 'absolute',
+        top: sizes.screenHeight*0.07,
+        right: sizes.screenWidth*0.04,
+        zIndex: 1,
+      },
 
 
 })
