@@ -4,15 +4,70 @@ import { colors, sizes, fontSize } from '../../utilities';
 import background from '../../Assets/background.png';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
-import { Arrowback } from '../../components';
+import { Arrowback, Loader } from '../../components';
 import DP from '../../Assets/photo.png';
 import ICON from '../../Assets/proicons1.png';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, setProfileImage } from '../../store/userActions';
 function EditProfile({ navigation }) {
+    const dispatch = useDispatch();
+    const userData = useSelector((state) => state.user);
 
+    console.log(userData.user.birthdate
+        , "====>userdataeditscreen");
     const [selectedImage, setSelectedImage] = useState('')
+
+    const [isEditingName, setIsEditingName] = useState(false);
+    const [isEditingNumber, setIsEditingNumber] = useState(false);
+    const [isEditingBirthdate, setIsEditingBirthdate] = useState(false);
+
+    const [name, setname] = useState(userData.user.firstName);
+    const [number, setphonenumber] = useState(userData.user.number);
+    const [birthdate, setbirthdate] = useState(userData.user.birthdate);
+
+    const toggleEditingName = () => setIsEditingName(!isEditingName);
+    const toggleEditingNumber = () => setIsEditingNumber(!isEditingNumber);
+    const toggleEditingBirthdate = () => setIsEditingBirthdate(!isEditingBirthdate);
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    const openModal = () => {
+        setModalVisible(true);
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+    };
+
+    const saveChanges = () => {
+        // Capture the updated values
+        const updatedName = name;
+        const updatedNumber = number;
+        const updatedBirthdate = birthdate;
+
+        // Update Redux store
+        openModal();
+
+        setTimeout(() => {
+            // Save user data to AsyncStorage
+            dispatch(setUser({ ...userData, firstName: updatedName, phoneNumber: updatedNumber, dateOfBirth: updatedBirthdate }));
+            closeModal();
+        }, 2000);
+
+        // Disable editing mode
+        setIsEditingName(false);
+        setIsEditingNumber(false);
+        setIsEditingBirthdate(false);
+
+    };
+
+
+
+
+
+
     const imagepicker = () => {
 
         let option = {
@@ -22,9 +77,12 @@ function EditProfile({ navigation }) {
             }
         }
 
-        launchImageLibrary(option, (response) => {
+        launchImageLibrary(option, async (response) => {
             if (response.assets && response.assets.length > 0) {
                 const uri = response.assets[0].uri;
+                setSelectedImage(uri);
+
+                dispatch(setProfileImage(uri)); // Dispatch an action to update the profileImage property
                 setSelectedImage(uri);
             }
         })
@@ -33,8 +91,8 @@ function EditProfile({ navigation }) {
 
 
 
-    return (
-
+    return (<>
+        <Loader isModalVisible={isModalVisible} closeModal={closeModal} />
         <View style={styles.container}>
             <Arrowback />
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -45,35 +103,17 @@ function EditProfile({ navigation }) {
                 <View style={styles.imgPicCon}>
                     <View style={styles.proDiv}>
 
-                        {/* <View style={styles.pdiv}>
-                            {selectedImage ? (
-                                <Image resizeMode='cover' source={{ uri: selectedImage }} style={styles.img} />
-                            ) : (
-                                <Image source={DP} />
-                            )}
 
-                            <TouchableOpacity
-                                onPress={imagepicker}
-
-
-
-
-
-
-                            >
-                                <Image
-                                    source={ICON}
-                                    style={styles.icon}
-                                />
-
-                            </TouchableOpacity>
-                        </View> */}
                         <View>
-                            {selectedImage ? (<View style={styles.img}>
-                                <Image resizeMode='center' style={styles.img} source={{ uri: selectedImage }} />
-                            </View>) : <View style={styles.img}>
-                                <Image resizeMode='center' style={styles.img} source={DP} />
-                            </View>}
+                            {selectedImage ? (
+                                <View style={styles.img}>
+                                    <Image resizeMode='center' style={styles.img} source={{ uri: selectedImage }} />
+                                </View>
+                            ) : (
+                                <View style={styles.img}>
+                                    <Image resizeMode='center' style={styles.img} source={{ uri: userData.user.profileImage }} />
+                                </View>
+                            )}
 
 
                             <TouchableOpacity
@@ -109,9 +149,20 @@ function EditProfile({ navigation }) {
                             placeholder='Name'
                             placeholderTextColor={'#000'}
                             style={styles.inp}
-                        >
+                            editable={isEditingName}
+                            value={name}
+                            onChangeText={(text) => setname(text)}
+                        />
+                        {!isEditingName && (
+                            <View style={styles.eicon}>
+                                <TouchableOpacity onPress={toggleEditingName}>
+                                    <AntDesign name='edit' size={20} color='#000' />
+                                </TouchableOpacity>
+                            </View>
+                        )}
 
-                        </TextInput>
+
+
                     </View>
 
                     <View style={styles.inpDiv}>
@@ -119,9 +170,19 @@ function EditProfile({ navigation }) {
                             placeholder='Phone number'
                             placeholderTextColor={'#000'}
                             style={styles.inp}
-                        >
+                            editable={isEditingNumber}
+                            value={userData.user.number} // Display the user's phone number from Redux
+                            onChangeText={(text) => setphonenumber(text)} // Handle changes if needed
+                        />
+                        {!isEditingNumber && (
+                            <View style={styles.eicon}>
+                                <TouchableOpacity onPress={toggleEditingNumber}>
+                                    <AntDesign name='edit' size={20} color='#000' />
+                                </TouchableOpacity>
+                            </View>
+                        )}
 
-                        </TextInput>
+
                     </View>
 
 
@@ -130,20 +191,30 @@ function EditProfile({ navigation }) {
                             placeholder='Date of birth'
                             placeholderTextColor={'#000'}
                             style={styles.inp}
-                        >
-                        </TextInput>
+                            editable={isEditingBirthdate}
+                            value={userData.user.birthdate} // Display the user's date of birth from Redux
+                            onChangeText={(text) => setbirthdate(text)} // Handle changes if needed
+                        />
+                        {!isEditingBirthdate && (
+                            <View style={styles.eicon}>
+                                <TouchableOpacity onPress={toggleEditingBirthdate}>
+                                    <AntDesign name='edit' size={20} color='#000' />
+                                </TouchableOpacity>
+                            </View>
+                        )}
+
 
                     </View>
 
 
                     {/* <View style={styles.inpDiv}>
                         <TextInput
-                            placeholder='Email'
-                            placeholderTextColor={'#000'}
-                            style={styles.inp}
+                        placeholder='Email'
+                        placeholderTextColor={'#000'}
+                        style={styles.inp}
                         >
                         </TextInput>
-
+                        
                     </View> */}
 
                     <View style={styles.line}></View>
@@ -165,23 +236,29 @@ function EditProfile({ navigation }) {
                 </View>
 
 
-
-
-                <View style={styles.buttoncontainer}>
+                {isEditingName || isEditingNumber || isEditingBirthdate ? (
+                    <View style={styles.buttoncontainer}>
+                        <TouchableOpacity style={styles.button} onPress={saveChanges}>
+                            <Text style={styles.logintext}>Save Changes</Text>
+                        </TouchableOpacity></View>
+                ) : <View style={styles.buttoncontainer}>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => navigation.navigate("datingpage")}
+                        onPress={() => navigation.navigate("datingpage",{})}
                     >
 
                         <Text style={styles.logintext}>Continue</Text>
 
                     </TouchableOpacity>
-                </View>
+                </View>}
+
+
             </ScrollView>
 
 
 
         </View>
+    </>
     )
 }
 
@@ -271,7 +348,7 @@ const styles = StyleSheet.create({
 
     },
     inp: {
-
+        color: "#000",
         borderColor: "#7BCFF6",
         borderWidth: 1,
         borderRadius: 10,
@@ -298,6 +375,9 @@ const styles = StyleSheet.create({
 
 
     },
+    eicon: { alignSelf: 'flex-end', bottom: sizes.screenHeight * 0.04, right: sizes.screenWidth * 0.03, }
+
+    ,
     button: {
         backgroundColor: "#fff",
         width: sizes.screenWidth * 0.70,

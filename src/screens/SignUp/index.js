@@ -6,14 +6,21 @@ const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 import { Arrowback, Loader } from '../../components'
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { setUser } from '../../store/userActions';
+import { useDispatch } from 'react-redux';
+
+
 function SignUp({ navigation }) {
 
- 
+  const dispatch = useDispatch();
  
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const[number,setnumber]=useState('')
+  const[birthdate,setbirthdate]=useState('')
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -50,16 +57,23 @@ function SignUp({ navigation }) {
       setError('Invalid email address');
       closeModal(); // Hide loader
     } else {
+    
+       
 
       setTimeout(() => {
+         // Save user data to AsyncStorage
+         AsyncStorage.setItem('userData', JSON.stringify({ firstName, lastName, email,password,number,birthdate }));
+    
+         // Dispatch the setUser action to store user data in Redux
+         dispatch(setUser({ firstName, lastName, email,password,number,birthdate }));
         closeModal(); // Hide loader
         navigation.navigate('login'); // Replace 'login' with the actual screen you want to navigate to
       }, 2000);
       // Navigate forward if all conditions are met
      // Hide loader
   
-    }
-
+   
+  }
   };
 
 
@@ -105,6 +119,28 @@ function SignUp({ navigation }) {
               placeholderTextColor="#000"
               onChangeText={(text) => setEmail(text)}
               value={email}
+              style={styles.inp}
+            />
+            
+          </View>
+          <View style={styles.inpDiv}>
+            <TextInput
+              placeholder="Phone number"
+              placeholderTextColor="#000"
+              onChangeText={(text) => setnumber(text)}
+              value={number}
+              keyboardType="numeric"
+              style={styles.inp}
+            />
+            
+          </View>
+          <View style={styles.inpDiv}>
+            <TextInput
+              placeholder="Date of birth"
+              placeholderTextColor="#000"
+              onChangeText={(text) => setbirthdate(text)}
+              value={birthdate}
+              keyboardType="numeric"
               style={styles.inp}
             />
             

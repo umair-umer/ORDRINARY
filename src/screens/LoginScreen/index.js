@@ -1,15 +1,45 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Text, View, Dimensions,StyleSheet,SafeAreaView,TouchableOpacity,ImageBackground, TextInput } from 'react-native'
 import { colors, sizes, fontSize } from '../../utilities';
 import background from '../../Assets/background.png';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 import { Arrowback, Loader } from '../../components'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
+import { setUser } from '../../store/userActions';
 function Login({navigation}) {
+
+
+  const user = useSelector((state) => state.user);
+  console.log(user);
   const [isModalVisible, setModalVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const[userEmail,setuserEmail]=useState();
+  const[userpassword,setuserpassword]=useState();
 
+  useEffect(() => {
+    const getUserDataFromStorage = async () => {
+      try {
+        const user = await AsyncStorage.getItem('SET_USER');
+        if (user) {
+          // Parse the JSON data and dispatch it to Redux
+          const parsedUserData = JSON.parse(user);
+          dispatch(setUser(parsedUserData));
+        }
+      } catch (error) {
+        console.error('Error retrieving user data from AsyncStorage:', error);
+      }
+    };
+    
+    setuserEmail(user.user?.email,); 
+    setuserpassword(user.user?.password)
+   
+    getUserDataFromStorage();
+  }, []);
+  // console.log(user.user.password
+  //   ,"====>useeffect"); 
   const openModal = () => {
     setModalVisible(true);
   };
@@ -45,7 +75,7 @@ function Login({navigation}) {
     const correctEmail = 'brian@gmail.com';
     const correctPassword = 'Umair123';
 
-    if (email === correctEmail && password === correctPassword) {
+    if (email === userEmail && password === userpassword) {
       openModal()
       setTimeout(() => {
         closeModal(); // Hide loader

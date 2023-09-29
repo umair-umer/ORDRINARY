@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { FlatList, View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, ImageBackground } from 'react-native'
 import { sizes, fontSize } from '../../utilities'
 import DP from '../../Assets/photo.png';
@@ -6,11 +6,11 @@ import DP1 from '../../Assets/stroy.jpg';
 import DP2 from '../../Assets/DP2.jpg';
 import DP3 from '../../Assets/DP3.jpg';
 import DP4 from '../../Assets/DP4.jpg';
-import Plusicon from  "../../Assets/Plusicon.png"
+import Plusicon from "../../Assets/Plusicon.png"
 import Img from '../../Assets/stoiesome.png'
 import { AppHeader, Filter, TabBar } from '../../components';
 import { useNavigation } from '@react-navigation/native';
-
+import { useSelector } from 'react-redux';
 
 
 
@@ -18,9 +18,10 @@ const DATA = [
   {
     id: 1,
     image: DP,
-    name: 'Emma',
-    icon:Plusicon,
+    name: "Bri",
+    icon: Plusicon,
     user: true,
+    
   },
   {
     id: 2,
@@ -43,6 +44,7 @@ const DATA = [
     name: 'Brian',
   },
 ];
+
 const postDATA = [
   {
     id: 1,
@@ -50,9 +52,9 @@ const postDATA = [
     name: 'Emma',
     backgroundimage: DP3,
     des: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-   
+
     intrest: "Travel"
-   
+
   },
   {
     id: 2,
@@ -91,6 +93,8 @@ const postDATA = [
 
 
 const PostImage = ({ backgroundimage, image, name, des, intrest }) => {
+
+
   return (
 
     <ImageBackground source={backgroundimage} resizeMode='cover' style={styles.stories}>
@@ -135,33 +139,66 @@ const PostImage = ({ backgroundimage, image, name, des, intrest }) => {
 
 
 
-const Item = ({ name, image,ion}) => {
+const Item = ({ name, image, ion,user }) => {
+ 
+  const userData = useSelector((state) => state.user);
   const navigation = useNavigation();
-  const [user, setuser] = useState(true)
-  return (
-      <TouchableOpacity style={styles.StoryDiv} 
-      onPress={() => navigation.navigate("view")}>
-     
-        <View style={styles.profile}>
-   
-          <Image
-            source={image}
-            style={{ width: "100%", height: "100%" }}
-            resizeMode='center'
 
-          />
+  const [userImage, setUserImage] = useState();
+  useEffect(() => {
+    // Function to retrieve the user image from AsyncStorage
+    const fetchUserImage = async () => {
+      try {
+        // Retrieve the image URL from the userData object
+        const imageUri = userData.user.imageUri; // Replace with your image property
+
+        if (imageUri) {
+          // If an image URL is found in userData, set it in the state
+          setUserImage(imageUri);
+        }
+      } catch (error) {
+        console.error('Error fetching user image:', error);
+      }
+    };
+console.log(userImage,"==>");
+
+
+    // Call the function to fetch the user image
+    fetchUserImage();
+  }, [userData]);
+
+
+ 
   
+  const UploadStori = () => {
 
-        </View>
-       <Image
-         source={ion}
+  }
+  return (
+    <TouchableOpacity style={styles.StoryDiv}
+      onPress={UploadStori}>
+
+      <View style={styles.profile}>
+
+        <Image
+          source={image}
+          style={{ width: "100%", height: "100%" }}
+          resizeMode='center'
+
+        />
+
+
+      </View>
+
+      <Image
+        onProgress={UploadStori}
+        source={ion}
         style={styles.icon}
-       />
-        <Text style={styles.text}>{name}</Text>
-        <TouchableOpacity>
-      </TouchableOpacity>
-      </TouchableOpacity>
-    
+      />
+
+      <Text style={styles.text}>{name}</Text>
+
+    </TouchableOpacity>
+
   )
 }
 
@@ -169,6 +206,9 @@ const Item = ({ name, image,ion}) => {
 
 
 function DatingPage({ navigation }) {
+  
+ 
+ 
   const [isModalVisible, setModalVisible] = useState(false);
   const openModal = () => {
     setModalVisible(true);
@@ -187,7 +227,7 @@ function DatingPage({ navigation }) {
 
           <View style={styles.mainStor}>
 
-      
+
 
             <FlatList
               horizontal
@@ -306,13 +346,13 @@ const styles = StyleSheet.create({
 
   },
   icon: {
-  
-     
+
+
     flexDirection: "row",
-    left:sizes.screenWidth * 0.21,
-    bottom:sizes.screenHeight *0.05,
-    position:'absolute'
-   
+    left: sizes.screenWidth * 0.21,
+    bottom: sizes.screenHeight * 0.05,
+    position: 'absolute'
+
   },
   showDiv: {
     justifyContent: 'center',
