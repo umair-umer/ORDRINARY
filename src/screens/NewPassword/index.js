@@ -46,12 +46,10 @@ function NewPassword({navigation}) {
              <View  style={styles.buttoncontainer}>
             <TouchableOpacity
             style={styles.button}
-
+            onPress={()=>navigation.navigate("login")}
           >
             
              <TouchableOpacity
-              
-             
              ><Text style={styles.logintext}>Sign in</Text></TouchableOpacity> 
           
           </TouchableOpacity>
@@ -122,7 +120,8 @@ const styles = StyleSheet.create({
             borderColor:"#7BCFF6",
             borderWidth:1,
             borderRadius:10,
-            paddingHorizontal:sizes.screenWidth*0.06
+            paddingHorizontal:sizes.screenWidth*0.06,
+            color:"#000"
 
         },
         tt2:{

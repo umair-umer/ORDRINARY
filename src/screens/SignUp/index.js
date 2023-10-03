@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, Dimensions, StyleSheet, SafeAreaView, TouchableOpacity, ImageBackground, TextInput } from 'react-native'
+import { Text, View, Dimensions, StyleSheet, SafeAreaView, TouchableOpacity, ImageBackground, TextInput, ScrollView } from 'react-native'
 import { colors, sizes, fontSize } from '../../utilities';
 import background from '../../Assets/background.png';
 const deviceHeight = Dimensions.get('window').height;
@@ -85,6 +85,7 @@ function SignUp({ navigation }) {
   <Loader isModalVisible={isModalVisible} closeModal={closeModal} />
     <ImageBackground source={background} style={styles.bgImg} resizeMode="cover">
       <View style={styles.container}>
+        <ScrollView  vartical={true} showsVerticalScrollIndicator={false}>
         <Arrowback />
         <View style={styles.logincontainer}>
           <Text style={styles.loginText}>Sign up</Text>
@@ -191,6 +192,7 @@ function SignUp({ navigation }) {
             <Text style={styles.logintext}>Sign Up</Text>
           </TouchableOpacity>
         </View>
+        </ScrollView>
       </View>
     </ImageBackground>
   </>
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: sizes.screenWidth * 0.02,
-    paddingVertical: sizes.screenHeight * 0.02
+    paddingVertical: sizes.screenHeight * 0.04
 
   },
   logincontainer: {

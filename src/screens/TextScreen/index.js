@@ -11,6 +11,8 @@ import stickers from '../../Assets/stickers.png';
 import { useRoute } from '@react-navigation/native';
 import AudioRecord from 'react-native-audio-record';
 import Sound from 'react-native-sound';
+import waves from '../../Assets/waves.png'
+// import waves from '../../Assets/AudiWaveBackground.png'
 // import FontAwesome from 'react-native-vector-icons/FontAwesome'
 async function requestAudioPermission() {
     try {
@@ -227,6 +229,12 @@ function TextScreen() {
                                 <TouchableOpacity  onPress={() =>{currentlyPlaying? pauseAudio :playAudio(item.audioPath)}} >
                                    <View style={styles.ChatDivoic}>
                                    <Entypo name={currentlyPlaying  ? 'controller-paus' : 'controller-play'} size={30} />
+                                 <View  style={styles.waves}>
+                                 <Image 
+                                    source={waves} 
+                                   style={{width:"100%",height:"100%"}}
+                                    />
+                                 </View>
                                    </View>
                                 </TouchableOpacity>
                             )}
@@ -435,6 +443,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
         left: sizes.screenWidth * 0.09,
+        flexDirection:'row',alignItems:'center'
     },
     ChatDivv: {
 
@@ -487,12 +496,13 @@ const styles = StyleSheet.create({
         // justifyContent:'center',
         borderTopLeftRadius:5,
         borderTopRightRadius:5,
-        borderBottomLeftRadius:5,
+        borderBottomLeftRadius:5,    
+    },
+    waves:{
         
-
-        
-       
-        
+         width:sizes.screenWidth*0.7,
+         height:sizes.screenHeight*0.04,
+        //  marginHorizontal:sizes.screenWidth*0.3
     }
 
 

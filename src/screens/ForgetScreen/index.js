@@ -40,13 +40,12 @@ function Forget({navigation}) {
 
              <View  style={styles.buttoncontainer}>
             <TouchableOpacity
+              onPress={()=>navigation.navigate("newpassword")}
             style={styles.button}
 
           >
             
              <TouchableOpacity
-               onPress={()=>navigation.navigate("newpassword")}
-             
              ><Text style={styles.logintext}>Submit</Text></TouchableOpacity> 
           
           </TouchableOpacity>
@@ -117,7 +116,8 @@ const styles = StyleSheet.create({
             borderColor:"#7BCFF6",
             borderWidth:1,
             borderRadius:10,
-            paddingHorizontal:sizes.screenWidth*0.06
+            paddingHorizontal:sizes.screenWidth*0.06,
+            color:"#000"
 
         },
         tt2:{

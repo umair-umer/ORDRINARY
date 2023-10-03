@@ -65,21 +65,22 @@ const styles = StyleSheet.create({
    bgImg:{
 
        width:sizes.screenWidth * 1,
-       height:sizes.screenWidth * 2,
+       height:sizes.screenWidth * 2.2,
    },
    text:{
 
-       width:sizes.screenWidth * 0.7,
-       height:sizes.screenHeight * 0.10,
-       marginHorizontal:sizes.screenWidth * 0.13,
-       marginVertical:sizes.screenHeight * 0.03,
+       width:sizes.screenWidth * 0.75,
+       height:sizes.screenHeight * 0.1,
+       marginHorizontal:sizes.screenWidth * 0.12,
+       marginVertical:sizes.screenHeight * 0.04,
        textAlign:"center",
-       alignItems:"center"
+       alignItems:"center",
+    
    },
    txt:{
 
       fontFamily:"popin",
-      fontSize:fontSize.h3,
+      fontSize:fontSize.h4,
       fontWeight:"700",
       color:"#0087C8"
    },
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
        justifyContent:"center",
        marginHorizontal:sizes.screenWidth*0.1,
        fontFamily:"popin",
-       fontSize:fontSize.h3,
+       fontSize:fontSize.h4,
        fontWeight:"700",
        color:"#000"
    },
