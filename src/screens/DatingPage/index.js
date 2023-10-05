@@ -171,11 +171,11 @@ console.log(userImage,"==>");
  
   
   const UploadStori = () => {
-
+    
   }
   return (
     <TouchableOpacity style={styles.StoryDiv}
-      onPress={UploadStori}>
+      onPress={()=>navigation.navigate("view")}>
 
       <View style={styles.profile}>
 

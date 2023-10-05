@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     countryOption: {
         fontSize: fontSize.large,
         paddingVertical: sizes.screenHeight * 0.01,
+        color:"#000"
     },
 });
 

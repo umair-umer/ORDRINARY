@@ -41,7 +41,7 @@ function TabBar() {
 
       <TouchableOpacity
        style={styles.icon}
-       onPress={()=>navigation.navigate("swippage")}
+       onPress={()=>navigation.navigate("postsrcn")}
        >
         <Entypo
           name="plus"

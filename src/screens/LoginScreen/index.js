@@ -79,7 +79,7 @@ function Login({navigation}) {
       openModal()
       setTimeout(() => {
         closeModal(); // Hide loader
-        navigation.navigate('datingpage'); // Replace 'login' with the actual screen you want to navigate to
+        navigation.navigate('interestscreen'); // Replace 'login' with the actual screen you want to navigate to
       }, 3000);
       // Successful login, navigate to the dashboard
    // Replace 'Dashboard' with your actual dashboard screen name

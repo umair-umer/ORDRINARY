@@ -212,7 +212,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: sizes.screenWidth * 0.02,
-    paddingVertical: sizes.screenHeight * 0.04
+    paddingVertical: sizes.screenHeight * 0.04,
+    
 
   },
   logincontainer: {

@@ -20,6 +20,10 @@ import DiscoverScreen from "./discoverscreen";
 import ChatScreen from "./chatscreen";
 import TextScreen from "./TextScreen";
 import MatchScreen from "./matchescreen";
+import PaymentScreen from "./PaymentScreen";
 
 
-export {Introductionliderscreen,CreateAccount,LoginWithNumber,GenderScreen,IntrestScreen,VerificationCode,NameScreen,SignUp,Login,Forget,NewPassword,ProfileDetails,DatingPage,EditProfile,ViewStory,MassageScreen,SwipPAge,UserProfile,DiscoverScreen,ChatScreen,TextScreen,MatchScreen}
+export {Introductionliderscreen,CreateAccount,LoginWithNumber,GenderScreen,
+    IntrestScreen,VerificationCode,NameScreen,SignUp,Login,Forget,NewPassword,
+    ProfileDetails,DatingPage,EditProfile,ViewStory,MassageScreen,SwipPAge,UserProfile,
+    DiscoverScreen,ChatScreen,TextScreen,MatchScreen,PaymentScreen}

@@ -14,7 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Modal from "react-native-modal";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const IntrestScreen = () => {
+const IntrestScreen = ({navigation}) => {
     const [Photography, setPhotography] = useState(null);
     const [isModalVisible, setModalVisible] = useState(false);
 
@@ -31,6 +31,15 @@ const IntrestScreen = () => {
     const [Music, setMusic] = useState(null);
     const [Drink, setDrink] = useState(null);
     const [VideoGame, setvideoGame] = useState(null);
+
+    const [isPaid, setIsPaid] = useState(false);
+
+    const handlePayment = () => {
+      // Implement your payment logic here
+      // Once payment is successful, set isPaid to true
+      setIsPaid(false);
+    };
+
 
     useEffect(() => {
         // This will log the current value of Photography whenever it changes.
@@ -285,9 +294,29 @@ console.log(VideoGame);
 
                             <View style={styles.paymentcontainer}>
                                 <TouchableOpacity 
-                                     style={ [styles.paymentfocus, styles.paymentbox]}  ><Text style={styles.paymenttext}>12</Text><Text style={styles.paymonth}>months</Text><Text style={styles.payyear}>$09/yr</Text></TouchableOpacity>
-                                <TouchableOpacity style={styles.paymentfocus}><Text style={styles.paymenttextactive}>1</Text><Text style={styles.paymonthactive}>months</Text><Text style={styles.payyearactive}>$1/mo</Text></TouchableOpacity>
-                                <TouchableOpacity style={styles.paymentbox}><Text style={styles.paymenttext}>6</Text><Text style={styles.paymonth}>months</Text><Text style={styles.payyear}>$4/mo</Text></TouchableOpacity>
+                                     style={ [styles.paymentfocus, styles.paymentbox]} 
+                                      onPress={()=>navigation.navigate("paid")}
+                                      >
+                                    <Text style={styles.paymenttext}>12</Text>
+                                    <Text style={styles.paymonth}>months</Text>
+                                    <Text style={styles.payyear}>$09/yr</Text>
+                                    </TouchableOpacity>
+                                <TouchableOpacity 
+                                style={styles.paymentfocus}
+                                onPress={()=>navigation.navigate("paid")}
+                                >
+                                <Text style={styles.paymenttextactive}>1</Text>
+                                <Text style={styles.paymonthactive}>months</Text>
+                                <Text style={styles.payyearactive}>$1/mo</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity 
+                                style={styles.paymentbox}
+                                onPress={()=>navigation.navigate("paid")}
+                                >
+                                <Text style={styles.paymenttext}>6</Text>
+                                <Text style={styles.paymonth}>months</Text>
+                                <Text style={styles.payyear}>$4/mo</Text>
+                                </TouchableOpacity>
                             </View>
 
                         </View>
@@ -333,12 +362,15 @@ console.log(VideoGame);
 
             </View>
             <View style={styles.intrestbuttonContainer}>
-                <TouchableOpacity onPress={handlepop} style={styles.ButtonCont}>
+                <TouchableOpacity 
+                onPress={handlePayment}
+                disabled={isPaid}
+                style={styles.ButtonCont}>
                     <Text style={styles.ButtonContText}>Continue</Text>
                 </TouchableOpacity>
-                <View style={styles.ButtonPremium}>
+                <TouchableOpacity onPress={handlepop} style={styles.ButtonPremium}>
                     <Text style={styles.ButtonPremiumtext}>Buy Premium</Text>
-                </View>
+                </TouchableOpacity>
             </View>
 
 
