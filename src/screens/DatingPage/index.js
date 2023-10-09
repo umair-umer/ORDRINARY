@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { FlatList, View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, ImageBackground } from 'react-native'
+import { FlatList, View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, ImageBackground, Alert } from 'react-native'
 import { sizes, fontSize } from '../../utilities'
 import DP from '../../Assets/photo.png';
 import DP1 from '../../Assets/stroy.jpg';
@@ -11,6 +11,8 @@ import Img from '../../Assets/stoiesome.png'
 import { AppHeader, Filter, TabBar } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+
 
 
 
@@ -171,33 +173,53 @@ console.log(userImage,"==>");
  
   
   const UploadStori = () => {
-    
-  }
-  return (
-    <TouchableOpacity style={styles.StoryDiv}
-      onPress={()=>navigation.navigate("view")}>
 
-      <View style={styles.profile}>
+    let option = {
+
+        storageoption: {
+            path: "images"
+        }
+    }
+
+    launchImageLibrary(option, async (response) => {
+        if (response.assets && response.assets.length > 0) {
+        const uri = response?.assets[0].uri;
+        // Navigate to the "ViewStory" screen and pass the image URI
+        navigation.navigate("view", { imageUri: uri });
+        }
+    })
+}
+  return (
+    <View style={styles.StoryDiv}>
+
+      <TouchableOpacity 
+      style={styles.profile}
+       onPress={()=>navigation.navigate("view")}  
+      >
 
         <Image
           source={image}
           style={{ width: "100%", height: "100%" }}
           resizeMode='center'
-
+          
         />
 
 
-      </View>
-
-      <Image
-        onProgress={UploadStori}
-        source={ion}
-        style={styles.icon}
-      />
-
+      </TouchableOpacity>
       <Text style={styles.text}>{name}</Text>
 
+
+    <TouchableOpacity
+    onPress={UploadStori}
+    style={styles.icon}
+    
+    >
+      <Image
+        source={ion}
+        />
     </TouchableOpacity>
+
+    </View>
 
   )
 }
@@ -223,9 +245,13 @@ function DatingPage({ navigation }) {
       <View style={{ backgroundColor: "#fff", paddingBottom: sizes.screenHeight * 0.06 }} >
         <AppHeader openModal={openModal} />
 
-        <View style={styles.Story}>
-
-          <View style={styles.mainStor}>
+        <View style={styles.Story}
+    
+        >
+            
+          <View style={styles.mainStor}
+               onPress={()=>navigation.navigate("view")}
+          >
 
 
 

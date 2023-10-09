@@ -128,12 +128,12 @@ const styles = StyleSheet.create({
 
     },
     button:{
-        backgroundColor:"#7BCFF6",
-        width:sizes.screenWidth*0.6,
-        height:sizes.screenHeight*0.06,
-        borderRadius:50,
-        justifyContent:'center',
-        alignItems:'center'
+      backgroundColor: "#7BCFF6",
+      width: sizes.screenWidth * 0.8,
+      height: sizes.screenHeight * 0.06,
+      borderRadius: 50,
+      justifyContent: "center",
+      alignItems: "center", 
     },
     logintext:{
         color:"#FFF",

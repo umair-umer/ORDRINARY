@@ -115,13 +115,13 @@ const Componentthrd = () => {
                     <Text style={styles.matchfontphyra}>of premium benefits on us..</Text>
                 </View>
             </View>
-     
+{/*      
             <TouchableOpacity
             style={styles.buttoncontainer}
                   onPress={()=>navigation.navigate("creataccount")}
             >
                     <Text style={styles.buttontext}>Get started</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
               
 
         </View>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create(
     {
         container: {
         //   flex:1,
-            // height: sizes.screenHeight,
+            height: sizes.screenHeight,
             // justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: "#7BCFF6"

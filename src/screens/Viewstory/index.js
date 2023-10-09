@@ -9,11 +9,13 @@ import DP from '../../Assets/photo.png';
 import DP4 from '../../Assets/DP4.jpg';
 import date1 from "../../Assets/date1.png"
 import AntDesign from 'react-native-vector-icons/AntDesign';
-function viewScreen({ navigation }) {
+function viewScreen({ navigation,route }) {
+    const { imageUri } = route.params || {}; // Use object destructuring with a default empty object
+    console.log(imageUri,"===>imageuri");
     const [current, setcurrent] = useState(0)
     const [content, setcontent] = useState([
         {
-            content: require('../../Assets/DP4.jpg'),
+            content:require('../../Assets/date1.png'),
             type: 'image',
             finish: 0,
         },
@@ -78,13 +80,15 @@ function viewScreen({ navigation }) {
 
         <View style={{ flex: 1, backgroundColor: "#000" }}>
 
-            <Image source={content[current].content} style={{ width: sizes.screenWidth, height: sizes.screenHeight, resizeMode: "cover" }}
+            <Image source={{ uri: imageUri }} style={{ width: sizes.screenWidth, height: sizes.screenHeight, resizeMode: "cover" }}
                 onLoadEnd={() => {
                     progress.setValue(0);
                     start();
                 }}
             />
-            
+               {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Image source={{ uri: imageUri }} style={{ width: 300, height: 300 }} />
+    </View> */}
 
             <View style={{ width: sizes.screenWidth, position: 'absolute', top: 10, justifyContent: 'space-evenly', flexDirection: 'row', alignItems: 'center' }}>
                 {content.map((index) => {

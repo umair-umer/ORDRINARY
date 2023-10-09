@@ -84,7 +84,12 @@ const Introductionliderscreen = ({ navigation }) => {
             <Text style={styles.buttontext}>next</Text>
 
           </TouchableOpacity>
-        :""}
+        :         <TouchableOpacity
+        style={styles.buttoncontainer}
+              onPress={()=>navigation.navigate("creataccount")}
+        >
+                <Text style={styles.buttontext}>Get started</Text>
+        </TouchableOpacity>}
 
         <View style={styles.wrapDot}>
           {slides?.map((item, index) => {

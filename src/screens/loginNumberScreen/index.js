@@ -74,7 +74,7 @@ const LoginWithNumber = ({ navigation }) => {
                 <PhoneInput
                     // ref={phoneInput}    
                     textContainerStyle={{ backgroundColor: 'white', borderRadius: 20, color: "#ffffff", padding: 0 }}
-                    containerStyle={{ height: sizes.screenHeight * 0.09, borderColor: "#7BCFF6", borderWidth: 2, borderRadius: 20 }}
+                    containerStyle={{ height: sizes.screenHeight * 0.10, borderColor: "#7BCFF6", borderWidth: 2, borderRadius: 20 }}
                     defaultValue={value}
                     defaultCode="DM"
                     layout="first"
@@ -96,15 +96,9 @@ const LoginWithNumber = ({ navigation }) => {
             </View>
             <View style={styles.buttoncontainer}>
                 <TouchableOpacity
-           
                     style={styles.button}
                     onPress={handleLogin}>
-
-                   
-                        
-
                     <Text style={styles.logintext}>Login</Text>
-
                 </TouchableOpacity>
             </View>
 
@@ -129,7 +123,8 @@ const styles = StyleSheet.create({
         fontFamily: "poppins",
         color: "#7BCFF6",
         fontSize: fontSize.h1,
-        fontWeight: '700'
+        fontWeight: '700',
+        
     },
     enternumberText: {
         marginVertical: sizes.screenHeight * 0.02,
